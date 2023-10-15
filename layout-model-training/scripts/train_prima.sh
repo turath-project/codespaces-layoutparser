@@ -2,16 +2,18 @@
 
 cd ../tools
 
-python convert_prima_to_coco.py \
-    --prima_datapath ../data/prima \
-    --anno_savepath ../data/prima/annotations.json 
+python cocosplit.py \                                  
+    --annotation-path     ../../data/downloaded-annotations/result.json \
+    --split-ratio         0.85 \
+    --train               ../../data/downloaded-annotations/train.json \
+    --test                ../../data/downloaded-annotations/test.json 
 
 python train_net.py \
     --dataset_name          prima-layout \
-    --json_annotation_train ../data/prima/annotations-train.json \
-    --image_path_train      ../data/prima/Images \
-    --json_annotation_val   ../data/prima/annotations-val.json \
-    --image_path_val        ../data/prima/Images \
-    --config-file           ../configs/prima/mask_rcnn_R_50_FPN_3x.yaml \
-    OUTPUT_DIR  ../outputs/prima/mask_rcnn_R_50_FPN_3x/ \
+    --json_annotation_train ../../data/downloaded-annotations/train.json \
+    --image_path_train      ../../data/downloaded-annotations \
+    --json_annotation_val   ../../data/downloaded-annotations/test.json \
+    --image_path_val        ../../data/downloaded-annotations \
+    --config-file           ../configs/prima/fast_rcnn_R_50_FPN_3x.yaml \
+    OUTPUT_DIR  ../../outputs/prima/fast_rcnn_R_50_FPN_3x/ \
     SOLVER.IMS_PER_BATCH 2 

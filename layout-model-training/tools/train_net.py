@@ -72,7 +72,7 @@ class Trainer(DefaultTrainer):
     @classmethod
     def build_train_loader(cls, cfg):
         mapper = DatasetMapper(cfg, is_train=True, augmentations=get_augs(cfg))
-        return build_detection_train_loader(cfg, mapper=mapper)
+        return build_detection_train_loader(cfg, mapper=mapper, prefetch_factor=2)
 
     @classmethod
     def build_evaluator(cls, cfg, dataset_name, output_folder=None):
